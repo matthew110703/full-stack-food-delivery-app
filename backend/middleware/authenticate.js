@@ -15,6 +15,10 @@ const authenticate = async (req, res, next) => {
     req.user = decoded;
     next();
   } catch (error) {
+    if (error.message === "jwt expired") {
+      error.statusCode = 401;
+      error.message = "Unauthorized. Access token has expired.";
+    }
     return next(error);
   }
 };
