@@ -5,7 +5,7 @@ const Menu = require("../models/menuModel");
 const getAllMenuItems = async (req, res, next) => {
   try {
     const menuItems = await Menu.find();
-    res.json({ menuItems });
+    res.json(menuItems);
   } catch (error) {
     next(error);
   }
