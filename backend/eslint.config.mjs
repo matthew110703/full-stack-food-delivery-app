@@ -7,4 +7,5 @@ export default [
   { languageOptions: { globals: globals.browser } },
   pluginJs.configs.recommended,
   { ignores: ["**/node_modules/**"] },
+  { env: { node: true } },
 ];
