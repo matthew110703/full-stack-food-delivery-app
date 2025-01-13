@@ -13,6 +13,7 @@ app.get("/", (req, res) => {
 });
 app.use("/auth", require("./routes/authRoutes"));
 app.use("/menu", require("./routes/menuRoutes"));
+app.use("/order", require("./routes/orderRoutes"));
 
 // Global error handler
 const errorHandler = require("./middleware/errorHandler");
