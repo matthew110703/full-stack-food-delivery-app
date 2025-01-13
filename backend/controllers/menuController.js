@@ -14,6 +14,14 @@ const getAllMenuItems = async (req, res, next) => {
 /** @description Add a new menu item */
 const addMenuItem = async (req, res, next) => {
   const { name, category, price, availability } = req.body;
+
+  // Validation
+  if (!name || !category || !price) {
+    const error = new Error("Name, category, and price are required");
+    error.status = 400;
+    return next(error);
+  }
+
   try {
     const menuItem = await Menu.create({ name, category, price, availability });
     res.status(201).json({ menuItem });
@@ -26,6 +34,14 @@ const addMenuItem = async (req, res, next) => {
 const updateMenuItem = async (req, res, next) => {
   const { id } = req.params;
   const { name, category, price, availability } = req.body;
+
+  // Validation
+  if (!id) {
+    const error = new Error("Menu item ID is required");
+    error.status = 400;
+    return next(error);
+  }
+
   try {
     const menuItem = await Menu.findByIdAndUpdate(
       id,
@@ -41,6 +57,14 @@ const updateMenuItem = async (req, res, next) => {
 /** @description Delete a menu item */
 const deleteMenuItem = async (req, res, next) => {
   const { id } = req.params;
+
+  // Validation
+  if (!id) {
+    const error = new Error("Menu item ID is required");
+    error.status = 400;
+    return next(error);
+  }
+
   try {
     await Menu.findByIdAndDelete(id);
     res.json({ message: "Menu item deleted" });
