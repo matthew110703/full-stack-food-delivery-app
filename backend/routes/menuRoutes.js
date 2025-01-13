@@ -11,6 +11,10 @@ const {
 
 const menuRoutes = express.Router();
 
+// Middleware
+const authenticate = require("../middleware/authenticate");
+menuRoutes.use(authenticate);
+
 // Routes
 menuRoutes.route("/").get(getAllMenuItems).post(addMenuItem);
 menuRoutes
