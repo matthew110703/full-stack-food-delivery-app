@@ -4,7 +4,7 @@ import { Link as ReactLink } from "react-router-dom";
 const Link = ({ href, className, children }) => {
   return (
     <ReactLink
-      to={href}
+      to={href || "#"}
       className={"text-sm hover:text-blue-600 hover:shadow-sm" + className}
     >
       {children}
@@ -13,7 +13,7 @@ const Link = ({ href, className, children }) => {
 };
 
 Link.propTypes = {
-  href: PropTypes.string.isRequired,
+  href: PropTypes.string,
   className: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
