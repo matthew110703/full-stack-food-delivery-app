@@ -18,13 +18,20 @@ const getMenuItem = async (req, res, next) => {
   // Validation
   if (!id) {
     const error = new Error("Menu item ID is required");
-    error.status = 400;
+    error.statusCode = 400;
     return next(error);
   }
 
   try {
     const menuItem = await Menu.findById(id);
-    res.json({ menuItem });
+
+    if (!menuItem) {
+      const error = new Error("Menu item not found");
+      error.statusCode = 404;
+      return next(error);
+    }
+
+    res.json({ success: true, menuItem });
   } catch (error) {
     next(error);
   }
@@ -37,13 +44,20 @@ const addMenuItem = async (req, res, next) => {
   // Validation
   if (!name || !category || !price) {
     const error = new Error("Name, category, and price are required");
-    error.status = 400;
+    error.statusCode = 400;
     return next(error);
   }
 
   try {
     const menuItem = await Menu.create({ name, category, price, availability });
-    res.status(201).json({ menuItem });
+
+    if (!menuItem) {
+      const error = new Error("Menu item not created");
+      error.statusCode = 400;
+      return next(error);
+    }
+
+    res.status(201).json({ success: true, menuItem });
   } catch (error) {
     next(error);
   }
@@ -57,17 +71,17 @@ const updateMenuItem = async (req, res, next) => {
   // Validation
   if (!id) {
     const error = new Error("Menu item ID is required");
-    error.status = 400;
+    error.statusCode = 400;
     return next(error);
   }
 
   try {
-    const menuItem = await Menu.findByIdAndUpdate(
-      id,
+    const menuItem = await Menu.findOneAndUpdate(
+      { _id: id },
       { name, category, price, availability },
       { new: true }
     );
-    res.json({ menuItem });
+    res.json({ success: true, menuItem });
   } catch (error) {
     next(error);
   }
@@ -80,13 +94,20 @@ const deleteMenuItem = async (req, res, next) => {
   // Validation
   if (!id) {
     const error = new Error("Menu item ID is required");
-    error.status = 400;
+    error.statusCode = 400;
     return next(error);
   }
 
   try {
-    await Menu.findByIdAndDelete(id);
-    res.json({ message: "Menu item deleted" });
+    const item = await Menu.findByIdAndDelete(id);
+
+    if (!item) {
+      const error = new Error("Menu item not found");
+      error.statusCode = 404;
+      return next(error);
+    }
+
+    res.json({ success: true, message: "Menu item deleted" });
   } catch (error) {
     next(error);
   }
