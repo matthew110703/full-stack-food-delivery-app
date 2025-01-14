@@ -42,9 +42,11 @@ const Header = () => {
 
           {/* Action */}
           <div className="flex items-center gap-4">
-            <h4 className="bg-gray-300 p-1 text-sm md:text-base md:p-2 rounded-md font-semibold">
-              Username 101
-            </h4>
+            <button className="flex gap-1.5 bg-blue-500 rounded-md shadow px-2 py-1 items-center">
+              <img src="/icons/cart.svg" alt="cart" width={24} />
+              <span className="text-sm text-white font-semibold">Cart </span>
+            </button>
+
             <Button
               title="Logout"
               className={
