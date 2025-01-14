@@ -5,6 +5,7 @@ const menuSchema = new mongoose.Schema(
     name: {
       type: String,
       required: [true, "Name is required"],
+      unique: true,
     },
     category: {
       type: String,
@@ -22,6 +23,8 @@ const menuSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+menuSchema.index({ name: "text", category: "text" });
 
 const Menu = mongoose.model("Menu", menuSchema);
 
