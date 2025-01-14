@@ -5,10 +5,10 @@ const Footer = () => {
   return (
     <footer
       id="footer"
-      className="flex justify-around items-center bg-gray-800 text-white px-2 py-4 rounded-t-md"
+      className="space-y-3 md:flex justify-around items-center bg-gray-800 text-white px-2 py-4 rounded-t-md"
     >
       {/* Brand Copyrights */}
-      <div className="space-y-2 text-center">
+      <div className="space-y-1 text-center">
         <img
           src="/icon.svg"
           alt="logo"
@@ -23,31 +23,32 @@ const Footer = () => {
       </div>
 
       {/* Quick Links */}
+      <section className="flex justify-center gap-16">
+        <div className="space-y-2">
+          <h2 className="font-semibold">Quick Links</h2>
+          <ul className="flex flex-col gap-1 *:text-sm">
+            <Link>Home</Link>
+            <Link>About</Link>
+            <Link>Orders</Link>
+            <Link>Privacy & Policy</Link>
+          </ul>
+        </div>
 
-      <div className="space-y-2">
-        <h2 className="font-semibold">Quick Links</h2>
-        <ul className="flex flex-col gap-2 *:text-sm">
-          <Link>Home</Link>
-          <Link>About</Link>
-          <Link>Orders</Link>
-          <Link>Privacy & Policy</Link>
-        </ul>
-      </div>
-
-      <div className="space-y-2">
-        <h2 className="font-semibold">Miscellaneous</h2>
-        <ul className="flex flex-col gap-2 *:text-sm">
-          <Link>Contact</Link>
-          <Link>Projects</Link>
-          <Link>Sitemap</Link>
-          <Link>Features</Link>
-        </ul>
-      </div>
+        <div className="space-y-2">
+          <h2 className="font-semibold">Miscellaneous</h2>
+          <ul className="flex flex-col gap-1 *:text-sm">
+            <Link>Contact</Link>
+            <Link>Projects</Link>
+            <Link>Sitemap</Link>
+            <Link>Features</Link>
+          </ul>
+        </div>
+      </section>
 
       {/* Social Media */}
-      <div className="flex flex-col gap-2">
+      <div className="flex md:flex-col gap-2 justify-center">
         <h2 className="font-semibold">Social Media</h2>
-        <div className="flex gap-2 *:cursor-pointer ">
+        <div className="flex justify-center gap-2 *:cursor-pointer ">
           <img
             src="/icons/twitter.svg"
             alt="icon"
