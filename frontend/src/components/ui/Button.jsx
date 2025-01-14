@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const Button = ({ href = "#", className, title, onClick, type }) => {
+const Button = ({ href = "#", className, title, onClick, type, children }) => {
   return (
     <Link
       role="button"
@@ -11,6 +11,7 @@ const Button = ({ href = "#", className, title, onClick, type }) => {
       type={type || "button"}
     >
       {title}
+      {children}
     </Link>
   );
 };
@@ -21,6 +22,7 @@ Button.propTypes = {
   title: PropTypes.string.isRequired,
   onClick: PropTypes.func,
   type: PropTypes.string,
+  children: PropTypes.string,
 };
 
 export default Button;
