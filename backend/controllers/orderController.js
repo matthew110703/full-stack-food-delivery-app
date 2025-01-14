@@ -10,24 +10,26 @@ const placeOrder = async (req, res, next) => {
   try {
     // Calculate the total amount
     let totalAmount = 0;
+    let documents = [];
     for (const item of menuItems) {
-      const menu = await Menu.findById(item.menuId);
-      totalAmount += menu.price * item.quantity;
-    }
+      const menu = await Menu.findById(item._id);
+      if (!menu) {
+        return next({
+          message: `Menu with id ${item._id} not found`,
+          statusCode: 404,
+        });
+      }
 
-    // Add menu items to the order
-    let items = [];
-    for (const item of menuItems) {
-      items.push({
-        menuId: item.menuId,
+      totalAmount += menu.price * item.quantity;
+      documents.push({
+        menuId: menu._id,
         quantity: item.quantity,
       });
     }
 
-    // Create the order
     const order = await Order.create({
       userId,
-      items,
+      items: documents,
       totalAmount,
     });
 
