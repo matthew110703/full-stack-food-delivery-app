@@ -17,10 +17,11 @@ const orderSchema = new mongoose.Schema(
         quantity: {
           type: Number,
           required: [true, "Quantity is required"],
+          default: 1,
         },
       },
     ],
-    totalamount: {
+    totalAmount: {
       type: Number,
       required: [true, "Total amount is required"],
     },
