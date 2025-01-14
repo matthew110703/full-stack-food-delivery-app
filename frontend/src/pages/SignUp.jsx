@@ -15,7 +15,7 @@ const SignUp = () => {
   };
 
   return (
-    <Container>
+    <Container className={"justify-between"}>
       <form className=" max-w-sm mx-auto" onSubmit={handleSubmit}>
         <div className="mb-4 w-full">
           <h1 className="text-center text-2xl font-bold mb-6">
