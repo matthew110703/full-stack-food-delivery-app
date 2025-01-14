@@ -3,9 +3,31 @@ const Menu = require("../models/menuModel");
 
 /** @description Get all menu items */
 const getAllMenuItems = async (req, res, next) => {
+  const { category, order, search, page = 1, limit = 10 } = req.query || {};
+
   try {
-    const menuItems = await Menu.find();
-    res.json(menuItems);
+    const query = {};
+    const sort = {};
+
+    // Filters
+    if (category) query.category = category;
+    if (search) query.$text = { $search: search };
+    if (order) sort.price = order === "asc" ? 1 : -1;
+
+    const menuItems = await Menu.find(query)
+      .sort(sort)
+      .skip((page - 1) * limit)
+      .limit(limit);
+
+    const totalItems = await Menu.countDocuments(query);
+
+    res.json({
+      success: true,
+      totalItems,
+      totalPages: Math.ceil(totalItems / limit),
+      currentPage: page,
+      menuItems,
+    });
   } catch (error) {
     next(error);
   }
